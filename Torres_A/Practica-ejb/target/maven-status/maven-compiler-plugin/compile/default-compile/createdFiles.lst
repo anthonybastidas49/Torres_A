@@ -1,0 +1,13 @@
+ec\edu\espe\model\HijoPK.class
+ec\edu\espe\dao\HijoDAO.class
+ec\edu\espe\dao\PadreDAO.class
+ec\edu\espe\model\Padre_.class
+ec\edu\espe\services\HijoService.class
+ec\edu\espe\services\Pruebas.class
+ec\edu\espe\model\Hijo_.class
+ec\edu\espe\enums\EstadoCivilPadreEnums.class
+ec\edu\espe\model\Padre.class
+ec\edu\espe\services\PadreService.class
+ec\edu\espe\model\HijoPK_.class
+ec\edu\espe\dao\AbstractDAO.class
+ec\edu\espe\model\Hijo.class
