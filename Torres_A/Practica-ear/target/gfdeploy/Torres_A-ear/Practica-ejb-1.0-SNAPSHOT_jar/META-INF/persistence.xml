@@ -4,6 +4,8 @@
     <jta-data-source>jdbc</jta-data-source>
     <class>ec.edu.espe.model.Hijo</class>
     <class>ec.edu.espe.model.Padre</class>
+    <class>ec.edu.espe.model.Funcionalidad</class>
+    <class>ec.edu.espe.model.Modulo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

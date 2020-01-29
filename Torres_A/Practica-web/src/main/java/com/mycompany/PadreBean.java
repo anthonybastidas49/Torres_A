@@ -45,9 +45,15 @@ public class PadreBean implements Serializable {
     public void initIt() {
         padre = new Padre();
         padreModificar = new Padre();
+        
         padres = service.buscarTodo();
         esSelecconado = false;
         enNuevo = false;
+        enModificar = true;
+        enEliminar = true;
+    }
+
+    public void seleccion() {
         enModificar = false;
         enEliminar = false;
     }
@@ -120,8 +126,8 @@ public class PadreBean implements Serializable {
     public void desbloquear() {
         esSelecconado = false;
         enNuevo = false;
-        enModificar = false;
-        enEliminar = false;
+        enModificar = true;
+        enEliminar = true;
     }
 
     public void bloquear() {

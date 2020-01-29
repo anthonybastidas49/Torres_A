@@ -12,10 +12,14 @@
     </ui:define>
     <ui:define name="content">
         <h:form id="fm">
+            <div class="card">
+                <div class="card-title">PADRE</div>
             <p:dataTable id="tblPadres" value="#{padreBean.padres}" var="tblPadre" selectionMode="single" 
-                         rowKey="#{tblPadre.codigo}" selection="#{padreBean.padreModificar}">
-                <p:ajax event="rowSelect" listener="#{dtSelectionView.onRowSelect}" update="@form" />
-                <p:ajax event="rowUnselect" listener="#{dtSelectionView.onRowUnselect}" update="@form   " />
+                         rowKey="#{tblPadre.codigo}" selection="#{padreBean.padreModificar}" rows="12" paginator="true" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="6,12,16">
+                <p:ajax event="rowSelect" listener="#{padreBean.seleccion()}" update="@form" />
+                <p:ajax event="rowUnselect" listener="#{padreBean.seleccion()}" update="@form   " />
                 <f:facet name="header">
                     LISTADO PADRES
                 </f:facet>
@@ -32,8 +36,8 @@
             <p:separator style="height: 10px"/>
             <p:panel id="buttonP">
                 <p:commandButton id="nuevoB" action="#{padreBean.nuevo()}" disabled="#{padreBean.enNuevo}" value="NUEVO" update="templateActualizar buttonP" immediate="true"/>
-                <p:commandButton id="editarB" action="#{padreBean.modificar()}" disabled="#{padreBean.enModificar}" value="EDITAR" update="templateActualizar buttonP @form"    immediate="true"/>
-                <p:commandButton id="eliminarB" action="#{padreBean.eliminar()}" disabled="#{padreBean.enEliminar}" value="ELIMINAR" update="templateActualizar buttonP @form"    immediate="true">
+                <p:commandButton id="editarB" action="#{padreBean.modificar()}" disabled="#{(padreBean.enModificar) or (padreBean.padreModificar eq null)}" value="EDITAR" update="templateActualizar buttonP @form"    immediate="true"/>
+                <p:commandButton id="eliminarB" action="#{padreBean.eliminar()}" disabled="#{(padreBean.enEliminar) or (padreBean.padreModificar eq null)}" value="ELIMINAR" update="templateActualizar buttonP @form"    immediate="true">
                     <p:confirm header="CONFIRMAR" message="¿ESTA SEGURO?" icon="pi pi-exclamation-triangle" />
                 </p:commandButton>
             </p:panel>
@@ -56,6 +60,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
             </p:confirmDialog>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

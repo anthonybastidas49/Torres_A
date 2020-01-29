@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Forms</ui:define>
+    <ui:define name="breadcrumb">
+        <li>Components</li>
+        <li><i class="material-icons">chevron_right</i></li>
+        <li><p:link outcome="/forms">Forms</p:link></li>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="fm">
+            <div class="card">
+                <div class="card-title">GESTIÓN MODULOS</div>
+                <p:dataTable id="tblModulo" value="#{conjuntaBean.listaModulos}" var="funcionalidad" selectionMode="single" 
+                             rowKey="#{funcionalidad.codigo}" selection="#{conjuntaBean.modulo}" rows="12" paginator="true" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="6,12,16">
+                    <p:ajax event="rowSelect" listener="#{conjuntaBean.seleccion()}" update="@form" />
+                    <p:ajax event="rowUnselect" listener="#{conjuntaBean.deseleccion()}" update="@form   " />
+                    <f:facet name="header">
+                        Gestión Funcionalidades
+                    </f:facet>
+                    <p:column headerText="CODIGO">
+                        #{funcionalidad.codigo}
+                    </p:column>
+                    <p:column headerText="NOMBRE">
+                        #{funcionalidad.nombre}
+                    </p:column>
+                    <p:column headerText="ESTADO">
+                        #{funcionalidad.estado.text}
+                    </p:column>
+                </p:dataTable> 
+                <p:panel id="buttonP">
+                    <p:commandButton id="funcionalidadesB" action="#{conjuntaBean.desplegarPanel()}"  disabled="#{conjuntaBean.esFuncionalidad}" value="Funcionalidades" update=" @form" immediate="true"/>
+                </p:panel>
+                <p:panel header="" id="templateActualizar">
+                    <p:panel header="" id="pnlTemplate" rendered="#{conjuntaBean.esDespleagable}">
+                        <p:dataTable id="tblFuncionalidad" value="#{conjuntaBean.listaFuncionalidades}" var="funcionalidadP" selectionMode="single" 
+                                     rowKey="#{funcionalidadP.codigo}"  selection="#{conjuntaBean.funcionaliadaS}" rows="12" paginator="true" 
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="6,12,16">
+                            <p:ajax event="rowSelect" listener="#{conjuntaBean.seleccion()}" update="@form" />
+                            <p:ajax event="rowUnselect" listener="#{conjuntaBean.deseleccion()}" update="@form   " />
+                            <f:facet name="header">
+                                #{conjuntaBean.nombre}
+                            </f:facet>
+                            <p:column headerText="CODIGO">
+                                #{funcionalidadP.codigo}
+                            </p:column>
+                            <p:column headerText="NOMBRE">
+                                #{funcionalidadP.nombre}
+                            </p:column>
+                            <p:column headerText="Descripción">
+                                #{funcionalidadP.descripcion}
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton id="nuevoB"   value="NUEVO"  update="@form" immediate="true"/>
+                        <p:commandButton id="eliminarB" action="#{conjuntaBean.eliminarFuncionalidad()}"  value="ELIMINAR" update="@form"    immediate="true">
+                            <p:confirm header="CONFIRMAR" message="¿ESTA SEGURO?" icon="pi pi-exclamation-triangle" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                        </p:confirmDialog>
+                    </p:panel>
+                </p:panel>
+
+                <p:panel header="" id="templateActualizarNuevo"   rendered="#{conjuntaBean.nuevoTemplate}">
+                    <p:panel header="" id="pnlTemplate" rendered="true">
+
+                        <p:outputLabel for="Nombre" value="Nombre" />
+                        <p:inputText id="Nombre" value="#{conjuntaBean.nuevaFuncionalidad.nombre}" required="true"/>
+                        <p:outputLabel for="url" value="url" />
+                        <p:inputText id="url" value="#{conjuntaBean.nuevaFuncionalidad.urlPrincipal}" required="true"/>
+                        <p:outputLabel for="descripcion" value="descripcion" />
+                        <p:inputText id="descripcion" value="#{conjuntaBean.nuevaFuncionalidad.descripcion}" required="true"/>
+                        <p:commandButton id="guardarB" value="Guardar"  update="@form"/>
+                        <p:commandButton id="cancelarB" value="Cancelar"  immediate="true" update="@form"/>
+                    </p:panel>
+                </p:panel>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
